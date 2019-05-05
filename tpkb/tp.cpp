@@ -34,6 +34,26 @@ int main()
     buf[2] = 0x00;
     hid_write(dev, buf, 3);
     
+    /* Same commands as bluetooth, except they start with 13
+     *
+     * 13 01 03 - Make F7/F9/F11 return custom single events, as opposed to strings of keys
+     * 13 02 05 - Sensitivity 01--09
+     * 13 05 01 - Enable fn-lock
+     * 13 05 00 - Disable fn-lock
+     * 13 09 01 - Disable middle mouse button's standard response (leave custom one working)
+     * 13 09 00 - Enable middle mouse button's standard response (leave custom one working)
+     * 13 02 01 -- 09 - Sensitivity control
+    
+    // Enable Fn keys
+    send_cmd(fd, 0x01, 0x03);
+    
+    // Enable native middle mouse mode
+    send_cmd(fd, 0x09, 0x01);
+    
+    // Fn-lock enable
+    send_cmd(fd, 0x05, 0x01);
+     */
+    
     hid_close(dev);
     return 0;
 }
